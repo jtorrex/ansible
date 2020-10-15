@@ -1,0 +1,6 @@
+---
+- name: Change myhostname var on /etc/postfix/main.cf
+  lineinfile: 
+    path: /etc/postfix/main.cf
+    regexp: '^(.*)myhostname = template-(.*)$'
+    line: 'myhostname = {{ hostname }}'
