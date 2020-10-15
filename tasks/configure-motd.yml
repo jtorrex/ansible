@@ -1,0 +1,20 @@
+---
+- name: Clean MOTD
+  file:
+      state: absent
+      path: /etc/motd
+
+- name: Create MOTD
+  blockinfile:
+      create: yes
+      marker: ''
+      marker_begin: ''
+      marker_end: ''
+      path: /etc/motd
+      block: |
+              +---------------------------------------+
+                * Welcome to: {{ inventory_hostname }}
+                * Last Ansible updated: {{ ansible_date_time.date }}
+              +---------------------------------------+
+                * Release: {{ ansible_lsb['description'] }}
+                * Kernel: {{ ansible_facts['kernel']}}
