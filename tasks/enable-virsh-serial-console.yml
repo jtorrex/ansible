@@ -1,0 +1,10 @@
+---
+- name: Enable virsh serial console
+  systemd:
+    name: serial-getty@ttyS0.service
+    enabled: yes
+
+- name: Start serial console
+  systemd:
+    name: serial-getty@ttyS0.service
+    state: started
