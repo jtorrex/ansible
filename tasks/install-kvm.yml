@@ -1,0 +1,21 @@
+---
+- name: Install KVM
+  package:
+    name: "{{item}}"
+    state: present
+  with_items:
+   - virt-manager
+   - qemu-kvm
+   - libvirt-clients
+   - libvirt-daemon-system
+   - bridge-utils
+
+- name: Add user libvirt
+  user: 
+    name: libvirt
+    comment: libvirt user
+
+- name: Start libvirtd
+  systemd:
+    state: started
+    name: libvirtd
