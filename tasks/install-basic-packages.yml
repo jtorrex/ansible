@@ -1,0 +1,33 @@
+---
+- name: Install some packages
+  package:
+    name: "{{item}}"
+    state: present
+  with_items:
+   - python-apt
+   - sudo
+   - vim
+   - htop
+   - zsh
+   - firefox-esr
+   - x11-common
+   - x11-apps
+   - ncdu
+   - tmux
+   - git
+   - screen
+   - dnsutils
+   - net-tools
+   - rsync
+   - wget
+   - curl
+   - traceroute
+   - ranger
+   - nmap
+   - netcat
+   - tcpdump
+   - openssl
+   - strace
+   - ltrace
+   - lsof
+   - proxychains
