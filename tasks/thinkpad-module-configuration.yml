@@ -1,0 +1,10 @@
+---
+- name: Modify modules configuration
+  blockinfile:
+    create: yes
+    path: /etc/modprobe.d/x250.conf
+    block: |
+     options snd_hda_intel index=1
+     options thinkpad_acpi force-load=1
+     options snd_hda_intel index=1,0
+     options psmouse synaptics_intertouch=0
