@@ -1,0 +1,399 @@
+---
+- name: Configure sec tools
+  become: yes
+  
+  environment:
+   GOPATH: /opt/go
+
+  tasks:
+  - name: apt update and upgrade
+    apt:
+      upgrade: dist
+      update_cache: yes
+
+  - name: apt install packages
+    apt:
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - git
+      - build-essential
+      - gcc
+      - make
+      - gnome-screenshot
+      - gedit
+      - cpanminus
+      - python-pip
+      - golang
+      - libpcap-dev
+      - libnetfilter-queue-dev
+      - python3-pip
+      - python-elixir
+      - ldap-utils
+      - rwho
+      - rsh-client
+      - x11-apps
+      - finger
+      - i3
+      - i3-wm
+      - bdfproxy
+      - mitmproxy
+      - python-openssl 
+
+  - name: Create directories
+    file:
+      path: "{{ directories }}"
+      state: directory
+      mode: '0755'
+    vars:
+      directories:
+      - /opt/impacket
+      - /opt/bhg
+      - /opt/cme
+      - /opt/rdp-sec-check
+      - /opt/mitm6
+      - /opt/bettercap 
+      - /opt/PowerUpSQL
+      - /opt/seth
+      - /opt/sysinternals
+      - /opt/eaphammer
+      - /opt/httpscreenshot
+      - /opt/masscan
+      - /opt/Gitrob
+      - /opt/CMSmap
+      - /opt/wpscan
+      - /opt/EyeWitness
+      - /opt/praedasploit
+      - /opt/sqlmap
+      - /opt/reecon-ng
+      - /opt/discover
+      - /opt/beef
+      - /opt/Responder
+      - /opt/Easy-P
+      - /opt/Password_Plus_One
+      - /opt/PowerShell_Popup
+      - /opt/icmpshock
+      - /opt/brutescrape
+      - /opt/reddit_xss-forked
+      - /opt/PowerSploit-forked
+      - /opt/PowerTools-forked
+      - /opt/nishang-forked
+      - /opt/NTDSXtract
+      - /opt/sparta
+      - /opt/NoSQLMap
+      - /opt/wce
+      - /opt/PowerSploit
+      - /opt/nishang
+      - /opt/Veil
+      - /opt/SecLists
+      - /opt/net-creds
+      - /opt/phishing-frenzy
+      - /opt/extraslist
+      - /opt/httpscreenshot
+      - /opt/masscan
+      - /opt/spiderfoot
+      - /opt/spiderfoot
+      - /opt/seth
+      - /opt/set
+      - /opt/Veil/config
+      - /opt/discover
+      - /opt/NTDSXtract
+
+  - name: Check if postgresql is UP
+    service:
+        name: postgresql
+        state: started
+
+  - name: git clone Impacket
+    git:
+      repo: https://github.com/CoreSecurity/impacket.git
+      dest: /opt/impacket
+
+  - name: pip install Impacket
+    pip:
+      requirements: /opt/impacket/requirements.txt
+
+  - name: git clone BHG
+    git:
+      repo: https://github.com/NinjaStyle82/bhg.git
+      dest: /opt/bhg
+
+  - name: git clone CME
+    git:
+      repo: https://github.com/byt3bl33d3r/CrackMapExec
+      dest: /opt/cme
+
+  - name: pip install CME
+    pip:
+      requirements: /opt/cme/requirements.txt
+
+  - name: Install rdp-sec-check dependencies
+    cpanm:
+      name: Encoding::BER
+
+  - name: git clone rdp-sec-check
+    git:
+      repo: https://github.com/portcullislabs/rdp-sec-check.git
+      dest: /opt/rdp-sec-check
+
+  - name: git clone mitm6
+    git:
+      repo: https://github.com/fox-it/mitm6.git
+      dest: /opt/mitm6
+
+  - name: pip install mitm6
+    pip:
+      requirements: /opt/mitm6/requirements.txt
+
+  - name: git clone Bettercap
+    git:
+      repo: https://github.com/bettercap/bettercap
+      dest: /opt/bettercap 
+
+  - name: git clone PowerUPSQL
+    git:
+      repo: https://github.com/NetSPI/PowerUpSQL.git
+      dest: /opt/PowerUpSQL
+
+  - name: git clone seth
+    git:
+      repo: https://github.com/SySS-Research/Seth.git
+      dest: /opt/seth
+
+  - name: download Sysinternals
+    get_url: 
+      url: http://live.sysinternals.com
+      dest: /opt/sysinternals
+
+  - name: git clone Eaphammer
+    git:
+      repo: https://github.com/s0lst1c3/eaphammer.git
+      dest: /opt/eaphammer
+
+  - name: git clone HTTPScreenShot
+    git:
+      repo: https://github.com/breenmachine/httpscreenshot.git
+      dest: /opt/httpscreenshot
+
+  - name: git clone masscan
+    git:
+      repo: https://github.com/robertdavidgraham/masscan.git
+      dest: /opt/masscan
+
+  - name: git clone GitRob
+    git:
+      repo: https://github.com/michenriksen/gitrob.git
+      dest: /optrob
+
+  - name: git clone CMSmap
+    git:
+      repo: https://github.com/Dionach/CMSmap
+      dest: /opt/CMSmap
+
+  - name: git clone WPScan
+    git:
+      repo: https://github.com/wpscanteam/wpscan.git
+      dest: /opt/wpscan
+
+  - name: git clone Eyewitness
+    git:
+      repo: https://github.com/ChrisTruncer/EyeWitness.git
+      dest: /opt/EyeWitness
+
+  - name: git clone PrinterXploits
+    git:
+      repo: https://github.com/MooseDojo/praedasploit
+      dest: /opt/praedasploit
+
+  - name: git clone SQLMAP
+    git:
+      repo: https://github.com/sqlmapproject/sqlmap
+      dest: /opt/sqlmap
+
+  - name: git clone Recon-ng
+    git:
+      repo: https://bitbucket.org/LaNMaSteR53/recon-ng.git
+      dest: /opt/reecon-ng
+
+  - name: git clone Discover Scripts
+    git:
+      repo: https://github.com/leebaird/discover.git
+      dest: /opt/discover
+
+  - name: Install BeEF Exploitation Framework
+    get_url: 
+      url: https://raw.github.com/beefproject/beef/a6a7536e/install-beef
+      dest: /opt/beef/install-beef
+      mode: '0770'
+
+  - name: git clone Responer
+    git:
+      repo: https://github.com/SpiderLabs/Responder.git
+      dest: /opt/Responder
+
+  - name: git clone THPB2-CustomScripts-EasyP
+    git:
+      repo: https://github.com/cheetz/Easy-P.git
+      dest:  /opt/Easy-P
+
+  - name: git clone THPB2-CustomScripts-PasswordPlusOne
+    git:
+      repo: https://github.com/cheetz/Password_Plus_One
+      dest: /opt/Password_Plus_One
+
+  - name: git clone THPB2-CustomScripts/PowerShell_Popup
+    git:
+      repo: https://github.com/cheetz/PowerShell_Popup
+      dest: /opt/PowerShell_Popup
+
+  - name: git clone THPB2-CustomScripts-icmpshock
+    git:
+      repo: https://github.com/cheetz/icmpshock
+      dest: /opt/icmpshock
+
+  - name: git clone THPB2-CustomScripts-brutescrape
+    git:
+      repo: https://github.com/cheetz/brutescrape
+      dest: /opt/brutescrape
+
+  - name: git clone THPB2-CustomScripts-reddit_xss
+    git:
+      repo: https://github.com/cheetz/reddit_xss
+      dest: /opt/reddit_xss-forked
+
+  - name: git clone THPB2-Forked-PowerSploit
+    git:
+      repo: https://github.com/cheetz/PowerSploit
+      dest: /opt/PowerSploit-forked
+
+  - name: git clone THPB2-Forked-PowerTools
+    git:
+      repo: https://github.com/cheetz/PowerTools
+      dest: /opt/PowerTools-forked
+
+  - name: git clone THPB2-Forked-nishang
+    git:
+      repo: https://github.com/cheetz/nishang
+      dest: /opt/nishang-forked
+  - name: git clone SPARTA
+    git:
+      repo: https://github.com/secforce/sparta.git
+      dest: /opt/sparta
+
+  - name: git clone NoSQLMap
+    git:
+      repo: https://github.com/tcstool/NoSQLMap.git
+      dest: /opt/NoSQLMap
+
+  - name: Download WCE
+    get_url:
+      url: https://www.ampliasecurity.com/research/wce_v1_4beta_universal.zip
+      dest: /opt/wce
+
+  - name: git clone SET
+    git:
+      repo: https://github.com/trustedsec/social-engineer-toolkit/
+      dest: /opt/set
+
+  - name: git clone PowerSploit
+    git:
+      repo: https://github.com/mattifestation/PowerSploit.git
+      dest: /opt/PowerSploit
+
+  - name: git clone Nishang
+    git:
+      repo: https://github.com/samratashok/nishang 
+      dest: /opt/nishang
+
+  - name: git clone Veil-Framework
+    git:
+      repo: https://github.com/Veil-Framework/Veil
+      dest: /opt/Veil
+
+  - name: git clone SecLists
+    git:
+      repo: https://github.com/danielmiessler/SecLists.git
+      dest: /opt/SecLists
+
+  - name: git clone Net-Creds Network Parsing
+    git:
+      repo: https://github.com/DanMcInerney/net-creds.git
+      dest: /opt/net-creds
+
+  - name: git clone Phishing
+    git:
+      repo: https://github.com/pentestgeek/phishing-frenzy.git
+      dest: /opt/phishing-frenzy
+
+  - name: git clone Extras
+    git:
+      repo: https://github.com/macubergeek/gitlist.git
+      dest: /opt/extraslist
+
+  - name: Install HTTPScreenShot requirements
+    pip:
+      requirements: requirements.txt
+    args:
+      chdir: /opt/httpscreenshot
+
+  - name: Install masscan
+    shell: make && make install
+    args:
+      chdir: /opt/masscan
+
+  - name: Download Spiderfoot
+    get_url: 
+      url: http://sourceforge.net/projects/spiderfoot/files/spiderfoot-2.3.0-src.tar.gz/download
+      dest: /opt/spiderfoot
+
+  - name: Install Spiderfoot  
+    unarchive:
+     src: /opt/spiderfoot/spiderfoot-2.3.0-src.tar.gz
+     remote_src: yes
+     dest: /opt/spiderfoot
+
+  - name: Install SpiderfootPip
+    pip:
+      executable: pip3
+      requirements: requirements.txt
+    args:
+      chdir: /opt/spiderfoot
+
+  - name: pip install seth
+    pip:
+      executable: pip3
+      requirements: requirements.txt
+    args:
+      chdir: /opt/seth
+
+  - name: Install WCE
+    shell: unzip -o *.zip
+    args:
+      chdir: /opt/wce
+
+  - name: pip install SET
+    pip:
+      executable: pip3
+      requirements: requirements.txt
+    args:
+      chdir: /opt/set
+
+  - name: Install PowerSploit
+    get_url:
+      url: https://raw.githubusercontent.com/obscuresec/random/master/StartListener.py 
+      dest: /opt/PowerSploit
+
+  - name: Install PowerSploit2
+    get_url:
+      url: https://raw.githubusercontent.com/darkoperator/powershell_scripts/master/ps_encoder.py
+      dest: /opt/PowerSploit
+
+  - name: Install Veil-Framework 1
+    shell: ./setup.sh --force --silent
+    args:
+      chdir: /opt/Veil/config/
+
+  - name: Install discover
+    shell: ./update.sh
+    args:
+      chdir: /opt/discover
