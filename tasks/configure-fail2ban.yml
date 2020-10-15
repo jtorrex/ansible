@@ -1,0 +1,35 @@
+---
+- name: Install the `fail2ban` package
+  package:
+    name: fail2ban
+    state: latest
+
+- name: Override some basic fail2ban configurations
+  copy:
+    src: files/jail.local.j2
+    dest: /etc/fail2ban/jail.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Configure fail2ban filter for OpenVPN
+  copy:
+    src: files/filter.openvpn.local.j2
+    dest: /etc/fail2ban/filter.d/openvpn.local
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Configure fail2ban jail for OpenVPN
+  copy:
+    src: files/jail.openvpn.j2
+    dest: /etc/fail2ban/jail.d/openvpn
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Restart fail2ban
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: fail2ban
