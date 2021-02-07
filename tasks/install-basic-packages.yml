@@ -4,16 +4,17 @@
     name: "{{item}}"
     state: present
   with_items:
-   - python-apt
    - sudo
-   - vim
+   - neovim
    - htop
    - zsh
    - firefox-esr
    - x11-common
    - x11-apps
+   - x11-xserver-utils
    - ncdu
    - tmux
+   - tree
    - git
    - screen
    - dnsutils
@@ -31,3 +32,10 @@
    - ltrace
    - lsof
    - proxychains
+   - fzf
+   - htop
+   - keychain
+   - pass
+   - python3
+   - python3-pip
+   
