@@ -16,6 +16,14 @@
    - tmux
    - tree
    - git
+   - build-essential
+   - gcc
+   - make
+   - cpanminus
+   - golang
+   - libpcap-dev
+   - libnetfilter-queue-dev
+   - ldap-utils
    - screen
    - dnsutils
    - net-tools
@@ -38,4 +46,6 @@
    - pass
    - python3
    - python3-pip
-   
+   - rwho
+   - rsh-client
+   - finger
