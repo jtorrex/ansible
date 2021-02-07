@@ -1,4 +1,4 @@
 ---
 - name: Change hostname
   hostname:
-    name: "{{ hostname }}"
+    name: "{{ ansible_hostname }}"
