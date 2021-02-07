@@ -1,45 +1,4 @@
 ---
-- name: Configure sec tools
-  become: yes
-  
-  environment:
-   GOPATH: /opt/go
-
-  tasks:
-  - name: apt update and upgrade
-    apt:
-      upgrade: dist
-      update_cache: yes
-
-  - name: apt install packages
-    apt:
-      name: "{{ packages }}"
-    vars:
-      packages:
-      - git
-      - build-essential
-      - gcc
-      - make
-      - gnome-screenshot
-      - gedit
-      - cpanminus
-      - python-pip
-      - golang
-      - libpcap-dev
-      - libnetfilter-queue-dev
-      - python3-pip
-      - python-elixir
-      - ldap-utils
-      - rwho
-      - rsh-client
-      - x11-apps
-      - finger
-      - i3
-      - i3-wm
-      - bdfproxy
-      - mitmproxy
-      - python-openssl 
-
   - name: Create directories
     file:
       path: "{{ directories }}"
@@ -200,10 +159,10 @@
       repo: https://github.com/ChrisTruncer/EyeWitness.git
       dest: /opt/EyeWitness
 
-  - name: git clone PrinterXploits
-    git:
-      repo: https://github.com/MooseDojo/praedasploit
-      dest: /opt/praedasploit
+      #  - name: git clone PrinterXploits
+      #    git:
+      #      repo: https://github.com/MooseDojo/praedasploit
+      #      dest: /opt/praedasploit
 
   - name: git clone SQLMAP
     git:
