@@ -41,6 +41,14 @@
     jump: ACCEPT
     protocol: tcp
 
+- name: Firewall rule - allow port 60222/SSH traffic
+  iptables:
+    chain: INPUT
+    destination_port: "60222"
+    jump: ACCEPT
+    protocol: tcp
+
+
 - name: Firewall rule - allow port 80/HTTP traffic
   iptables:
     chain: INPUT
@@ -63,6 +71,13 @@
     protocol: tcp
 
 - name: Firewall rule - allow port 1194/OpenVPN traffic
+  iptables:
+    chain: INPUT
+    destination_port: "1194"
+    jump: ACCEPT
+    protocol: udp
+
+- name: Firewall rule - allow port 6443/Kubernetes traffic
   iptables:
     chain: INPUT
     destination_port: "1194"
