@@ -1,12 +1,8 @@
 ---
-- name: Run apt-get update equivalent
+- name: Run apt-get upgrade-dist
   apt:
-    update_cache: yes
+      upgrade: dist
   when: ansible_os_family == "Debian" or ansible_os_family == "Ubuntu"
-
-- name: Update all packages to the latest version
-  apt:
-    upgrade: dist
 
 - name: Remove useless packages from the cache
   apt:
