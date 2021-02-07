@@ -1,0 +1,39 @@
+---
+- name: Change default shell for user
+  user:
+      name: '{{ ansible_user }}'
+      shell: /usr/bin/zsh
+
+- name: Clone the git repository for dotfiles
+  git:
+      repo: https://github.com/jtorrex/dotfiles
+      dest: /tmp/dotfiles
+
+- name: Copy tmux configuration
+  ansible.builtin.copy:
+      src: '/tmp/dotfiles/.tmux.conf'
+      dest: '/home/zxcv90/.tmux.conf'
+      remote_src: yes
+
+- name: Copy zsh configuration
+  ansible.builtin.copy:
+      src: '/tmp/dotfiles/.zshrc'
+      dest: '/home/zxcv90/.zshrc'
+      remote_src: yes
+
+- name: Copy vim configuration
+  ansible.builtin.copy:
+      src: '/tmp/dotfiles/config/nvim/init.vim'
+      dest: '/home/zxcv90/.vimrc'
+      remote_src: yes
+
+- name: Create destination folder for antigen
+  file:
+      path: /usr/share/zsh/share
+      state: directory
+
+- name: Install antigen
+  get_url:
+      url: https://git.io/antigen
+      dest: /usr/share/zsh/share/antigen.zsh
+
