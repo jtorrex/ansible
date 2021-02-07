@@ -1,0 +1,16 @@
+---
+- name: Normalize environment
+  hosts: all
+  become: true
+
+  tasks:
+      - import_tasks: tasks/change-hostname.yml
+      - import_tasks: tasks/configure-motd.yml
+      - import_tasks: tasks/apt-update.yml
+      - import_tasks: tasks/install-basic-packages.yml
+      - import_tasks: tasks/configure-dotfiles.yml
+      - import_tasks: tasks/install-sudo.yml
+      - import_tasks: tasks/configure-firewall.yml
+      - import_tasks: tasks/configure-fail2ban.yml
+      - import_tasks: tasks/hardening-ssh.yml
+      - import_tasks: tasks/apt-upgrade.yml
