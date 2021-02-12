@@ -22,7 +22,11 @@
       line: "UseDNS no"
     - regexp: "^#?AllowAgentForwarding"
       line: "AllowAgentForwarding no"
-
+    - regexp: "^#?X11Forwarding"
+      line: "X11Forwarding yes"
+    - regexp: "^#?X11UseLocalhost"
+      line: "X11UseLocalhost no"
+      
 - name: Restart sshd
   systemd:
     state: restarted
